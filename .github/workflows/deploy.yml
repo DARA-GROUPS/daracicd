@@ -1,8 +1,26 @@
 name: Deploy via SSH
 
 on:
-  push:
-    branches: [dev]
+  workflow_call:
+    inputs:
+      host: 
+        required: true
+        type: string
+      username: 
+        required: true
+        type: string
+      Key: 
+        required: true
+        type: string
+      passphrase: 
+        required: true
+        type: string
+      src: 
+        required: true
+        type: string
+      target: 
+        required: true
+        type: string
 
 jobs:
   deploy:
@@ -27,9 +45,9 @@ jobs:
       - name: Copying files to server
         uses: garygrossgarten/github-action-scp@release
         with:
-          host: ${{ secrets.REMOTE_HOST }}
-          username: ${{ secrets.REMOTE_USER }}
-          privateKey: ${{ secrets.SSH_KEY }}
-          passphrase: ${{ secrets.SSH_KEY_PASSPHRASE }}
-          local: "dist/"
-          remote: "${{ secrets.TARGET_DIR }}"
+          host: ${{ inputs.host }}
+          username: ${{ inputs.username }}
+          privateKey: ${{ inputs.key }}
+          passphrase: ${{ inputs.paraphrase }}
+          local: ${{ inputs.src }}
+          remote: "${{ inputs.target }}"
