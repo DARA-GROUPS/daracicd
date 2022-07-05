@@ -39,18 +39,18 @@ jobs:
         uses: "finnp/create-file-action@master"
         env:
           FILE_NAME: "./dist/.htaccess"
-          FILE_DATA: |
-<IfModule mod_negotiation.c>
-  Options -MultiViews
-</IfModule>
-<IfModule mod_rewrite.c>
-  RewriteEngine On
-  RewriteBase /
-  RewriteRule ^index\.html$ - [L]
-  RewriteCond %{REQUEST_FILENAME} !-f
-  RewriteCond %{REQUEST_FILENAME} !-d
-  RewriteRule . /index.html [L]
-</IfModule>
+          FILE_DATA: >
+            <IfModule mod_negotiation.c>
+              Options -MultiViews
+            </IfModule>
+            <IfModule mod_rewrite.c>
+              RewriteEngine On
+              RewriteBase /
+              RewriteRule ^index\.html$ - [L]
+              RewriteCond %{REQUEST_FILENAME} !-f
+              RewriteCond %{REQUEST_FILENAME} !-d
+              RewriteRule . /index.html [L]
+            </IfModule>
 
       # Copying files and artifacts via SSH
       - name: Copying files to server
