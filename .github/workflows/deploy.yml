@@ -36,21 +36,23 @@ jobs:
         run: npm run build --if-present
 
       - name: Creating .htaccess file
-        uses: "finnp/create-file-action@master"
-        env:
-          FILE_NAME: "./dist/.htaccess"
-          FILE_DATA: >
-            <IfModule mod_negotiation.c>\n
-              Options -MultiViews\n
-            </IfModule>\n
-            <IfModule mod_rewrite.c>\n
-              RewriteEngine On\n
-              RewriteBase /\n
-              RewriteRule ^index\.html$ - [L]\n
-              RewriteCond %{REQUEST_FILENAME} !-f\n
-              RewriteCond %{REQUEST_FILENAME} !-d\n
-              RewriteRule . /index.html [L]\n
-            </IfModule>\n
+        uses: 1arp/create-a-file-action@0.2
+        with:
+          path: './dist/'
+          file: '.htaccess'
+          content: |
+            <IfModule mod_negotiation.c>
+              Options -MultiViews
+            </IfModule>
+            <IfModule mod_rewrite.c>
+              RewriteEngine On
+              RewriteBase /
+              RewriteRule ^index\.html$ - [L]
+              RewriteCond %{REQUEST_FILENAME} !-f
+              RewriteCond %{REQUEST_FILENAME} !-d
+              RewriteRule . /index.html [L]
+            </IfModule>
+            
 
       # Copying files and artifacts via SSH
       - name: Copying files to server
