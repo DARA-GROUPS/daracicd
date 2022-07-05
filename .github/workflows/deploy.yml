@@ -38,7 +38,7 @@ jobs:
       - name: Creating .htaccess file
         uses: "finnp/create-file-action@master"
         env:
-          FILE_NAME: "${{ secrets.TARGET_DIR }}/.htaccess"
+          FILE_NAME: "./dist/.htaccess"
           FILE_DATA: |
 <IfModule mod_negotiation.c>
   Options -MultiViews
